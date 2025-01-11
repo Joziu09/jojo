@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindegy nekem, játékok</title>
+    <style>
+        body {
+            background-color: #00c8ff;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        .valasztek {
+            border: white solid 5px;
+            display: block;
+            width: 10rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            font-size: large;
+            font-weight: bold;
+            margin: 1px;
+            display: inline;
+        }
+
+        p a:link {
+            color: white;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            background-color: green;
+        }
+
+        p a:active {
+            color: greenyellow;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media(min-width: 500px) {
+            img {
+                width: 500px;
+                height: 332, 69px;
+            }
+        }
+
+        /* Reklám */
+        .reklam {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #ffffff;
+            border-radius: 10%;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .reklam:hover {
+            transform: scale(1.1);
+            border-color: #b74b4b;
+        }
+
+        .megnezem {
+            margin-left: 10px;
+            border-radius: 10px;
+        }
+
+        .megnezem.animate {
+            animation-name: r;
+            animation-duration: 1s;
+        }
+
+        @keyframes r {
+            14.28% {
+                transform: rotate(10deg);
+            }
+
+            28.57% {
+                transform: rotate(-10deg);
+            }
+
+            42.85% {
+                transform: rotate(10deg);
+            }
+
+            57.14% {
+                transform: rotate(-10deg);
+            }
+
+            71.42% {
+                transform: rotate(10deg);
+            }
+
+            85.71% {
+                transform: rotate(-10deg);
+            }
+        }
+
+        .megnezem {
+            width: 50px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Mindegy nekem</h1>
+    <div class="valasztek">
+        <p><a href="https://janigitjanika.github.io/JaniGITHUBJANIKA.io/egyeb/geptelefon/Bus%20Simulator%20Jojo.2.html">Busz
+                1</a></p>
+        <p><a href="bus2.html">Busz 2</a></p>
+    </div>
+    <br>
+    <!-- Reklám -->
+    <div style="height: 20px;"></div>
+    <span>
+        <video autoplay muted loop class="reklam">
+            <source src="https://janigitjanika.github.io/JaniGITHUBJANIKA.io/reklam.mp4" type="video/mp4">
+        </video>
+    </span>
+    <span><a href="https://janigitjanika.github.io/JaniGITHUBJANIKA.io"><img src="megnezem.png"
+                class="megnezem"></a></span>
+    <script src="script.js"></script>
+    <br>
+    <br>
+    <img src="Screenshot_20241214_125535_Google.jpg">
+    <script>
+        // Reklám
+document.querySelector('.reklam').addEventListener('click', function() {
+    const element = document.querySelector('.megnezem');
+    element.classList.remove('animate');
+    
+    // Ismételje az animációt.
+    void element.offsetWidth;
+    
+    element.classList.add('animate');
+});
+    </script>
+</body>
+
+</html>
