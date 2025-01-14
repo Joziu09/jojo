@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Bus Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            background-color: #87CEEB;
+        }
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <p>Current Bus: <span id="bus-brand">Mercedes</span></p>
+        <p>Level: <span id="level">1</span></p>
+        <p>Passengers: <span id="passengers">0</span></p>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const bus = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            width: 220, // Increased size
+            height: 110,
+            color: "#1E90FF", // Light blue color for the bus body
+            speed: 5,
+            doorOpen: false,
+            brand: "Mercedes", // Add brand logo information
+        };
+
+        let currentBus = "Mercedes";
+        let level = 1;
+        let passengers = 0;
+        const maxLevel = 100;
+
+        const stops = [
+            { x: 200, y: 200 },
+            { x: 600, y: 400 },
+            { x: 1000, y: 300 },
+            { x: 400, y: 600 },
+            { x: 800, y: 500 },
+        ];
+
+        let currentStopIndex = 0;
+        const passengersAtStops = stops.map(() => Math.floor(Math.random() * 5) + 1);
+
+        const keys = {
+            w: false,
+            s: false,
+            a: false,
+            d: false,
+            e: false,
+        };
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key.toLowerCase() in keys) keys[e.key.toLowerCase()] = true;
+        });
+
+        window.addEventListener("keyup", (e) => {
+            if (e.key.toLowerCase() in keys) keys[e.key.toLowerCase()] = false;
+        });
+
+        function update() {
+            // Movement
+            if (keys.w) bus.y -= bus.speed;
+            if (keys.s) bus.y += bus.speed;
+            if (keys.a) bus.x -= bus.speed;
+            if (keys.d) bus.x += bus.speed;
+
+            // Door toggle
+            if (keys.e) {
+                bus.doorOpen = !bus.doorOpen;
+                keys.e = false; // Prevent continuous toggling
+            }
+
+            // Level up and boarding only at stops with the door open
+            const stop = stops[currentStopIndex];
+            const atStop = Math.abs(bus.x - stop.x) < 70 && Math.abs(bus.y - stop.y) < 70;
+
+            if (atStop && bus.doorOpen) {
+                if (level < maxLevel && Math.random() < 0.01) {
+                    level++;
+                    passengers += passengersAtStops[currentStopIndex];
+                    passengersAtStops[currentStopIndex] = 0;
+                    document.getElementById("level").innerText = level;
+                    document.getElementById("passengers").innerText = passengers;
+                }
+            }
+
+            // Move to the next stop when the bus leaves the current stop
+            if (!atStop && Math.random() < 0.001) {
+                currentStopIndex = (currentStopIndex + 1) % stops.length;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw bus body
+            ctx.fillStyle = bus.color;
+            ctx.fillRect(bus.x, bus.y, bus.width, bus.height);
+
+            // Draw bus windows
+            ctx.fillStyle = "#ADD8E6"; // Light blue for windows
+            for (let i = 1; i <= 4; i++) {
+                ctx.fillRect(bus.x + i * 40, bus.y + 10, 30, 40);
+            }
+
+            // Draw bus wheels
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(bus.x + 40, bus.y + bus.height, 20, 0, Math.PI * 2);
+            ctx.arc(bus.x + bus.width - 40, bus.y + bus.height, 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw bus doors
+            ctx.fillStyle = bus.doorOpen ? "green" : "red";
+            ctx.fillRect(bus.x + bus.width - 30, bus.y + 20, 20, 60);
+
+            // Draw bus brand logo
+            ctx.fillStyle = "black";
+            ctx.font = "bold 16px Arial";
+            ctx.fillText(bus.brand, bus.x + 10, bus.y + 20);
+
+            // Draw passengers
+            ctx.fillStyle = "black";
+            ctx.font = "20px Arial";
+            ctx.fillText(`Passengers: ${passengers}`, bus.x, bus.y - 10);
+
+            // Draw stops as rectangles
+            stops.forEach((stop, index) => {
+                ctx.fillStyle = index === currentStopIndex ? "blue" : "gray";
+                ctx.fillRect(stop.x - 50, stop.y - 50, 100, 100);
+
+                // Draw passengers at stop
+                ctx.fillStyle = "black";
+                ctx.fillText(`+${passengersAtStops[index]}`, stop.x - 10, stop.y - 60);
+            });
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+
+        // UI functionality for changing bus
+        const busBrandElement = document.getElementById("bus-brand");
+        document.addEventListener("click", () => {
+            currentBus = currentBus === "Mercedes" ? "MAN" : "Mercedes";
+            busBrandElement.innerText = currentBus;
+            bus.color = currentBus === "Mercedes" ? "#1E90FF" : "#FFD700"; // Different colors for buses
+            bus.brand = currentBus;
+        });
+    </script>
+</body>
+</html>
