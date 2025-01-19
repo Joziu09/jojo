@@ -1,155 +1,66 @@
 <!DOCTYPE html>
-<html lang="hu">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mindegy nekem, játékok-Nie obchodzi mnie to,gry </title>
+    <title>Jelszó</title>
     <style>
         body {
-            background-color: #00c8ff;
-            color: white;
+            background-color: #2b2b2b;
+            color: black;
             font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
         }
-
-        .valasztek {
-            border: white solid 5px;
-            display: block;
-            width: 10rem;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        p {
-            font-size: large;
-            font-weight: bold;
-            margin: 1px;
-            display: inline;
-        }
-
-        p a:link {
-            color: white;
-            text-decoration: none;
-        }
-
-        p a:hover {
-            background-color: green;
-        }
-
-        p a:active {
-            color: greenyellow;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-
-        @media(min-width: 500px) {
-            img {
-                width: 500px;
-                height: 332, 69px;
-            }
-        }
-
-        /* Reklám */
-        .reklam {
+        .jelpan {
             width: 200px;
-            height: 200px;
-            border: 2px solid #ffffff;
-            border-radius: 10%;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .reklam:hover {
-            transform: scale(1.1);
-            border-color: #b74b4b;
-        }
-
-        .megnezem {
-            margin-left: 10px;
+            height: 150px;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -75px;
+            margin-left: -100px;
             border-radius: 10px;
         }
-
-        .megnezem.animate {
-            animation-name: r;
-            animation-duration: 1s;
+        .nev {
+            text-align: center;
+            font-size: large;
         }
-
-        @keyframes r {
-            14.28% {
-                transform: rotate(10deg);
-            }
-
-            28.57% {
-                transform: rotate(-10deg);
-            }
-
-            42.85% {
-                transform: rotate(10deg);
-            }
-
-            57.14% {
-                transform: rotate(-10deg);
-            }
-
-            71.42% {
-                transform: rotate(10deg);
-            }
-
-            85.71% {
-                transform: rotate(-10deg);
-            }
-        }
-
-        .megnezem {
-            width: 50px;
-            height: 200px;
+        #passwordFrom {
+            position: absolute;
+            text-align: center;
         }
     </style>
 </head>
-
 <body>
-    <h1>Mindegy nekem, játékok-Nie obchodzi mnie to,gry </h1>
-    <div class="valasztek">
-        <p><a href="https://janigitjanika.github.io/JaniGITHUBJANIKA.io/egyeb/geptelefon/Bus%20Simulator%20Jojo.2.html">Busz
-                1-(autobus 1)</a></p>
-                <br>
-        <p><a href="bus2.html">Busz 2-(autobus 2)</a></p>
-        <br>
-       <p> <a href="boss.html">Boss</a></p>
-       <br>
-       <p><a href="busz tel.html">PC,L</a></p>
+    <div class="jelpan">
+        <p class="nev">Mindegy nekem, játékok</p>
+        <hr>
+        <!-- Form javítva, from -> form -->
+        <form id="passwordFrom" onsubmit="return false;">
+            Jelszó: 
+            <input type="password" id="password">
+            <!-- Button típus módosítva: type="button" -->
+            <button type="button" onclick="checkPassword()">Belépés</button>
+        </form>
     </div>
-    <br>
-    <!-- Reklám -->
-    <div style="height: 20px;"></div>
-    <span>
-        <video autoplay muted loop class="reklam">
-            <source src="https://janigitjanika.github.io/JaniGITHUBJANIKA.io/reklam.mp4" type="video/mp4">
-        </video>
-    </span>
-    <span><a href="https://janigitjanika.github.io/JaniGITHUBJANIKA.io"><img src="megnezem.png"
-                class="megnezem"></a></span>
-    <script src="script.js"></script>
-    <br>
-    <br>
-    <a href="lv_0_20250116151652.mp4"><img src="Screenshot_20241214_125535_Google.jpg"></a>
-    <a href="lv_0_20250116151652.mp4"><img src="R.jpg" alt=""></a>
-    <a href="lv_0_20250116151652.mp4"><img src="2023_honda_cr-v_4dr-suv_sport-hybrid_fq_oem_1_1600.avif" alt=""></a>
-    <script>
-        // Reklám
-document.querySelector('.reklam').addEventListener('click', function() {
-    const element = document.querySelector('.megnezem');
-    element.classList.remove('animate');
-    
-    // Ismételje az animációt.
-    void element.offsetWidth;
-    
-    element.classList.add('animate');
-});
-    </script>
-</body>
 
+<script>
+    // Helyes jelszó
+    const correctPassword = "R8";
+
+    function checkPassword() {
+        const inputField = document.getElementById("password");  // Helyesen hivatkozva
+        const enteredPassword = inputField.value;
+
+        if (enteredPassword === correctPassword) {
+            // Helyes jelszó esetén jojo.html
+            window.location.href = "jojo.html";
+        } else {
+            // Helytelen jelszó esetén üzenet és mező törlése
+            alert("Segitek meg sugom hogy a jelszó (R8).");
+            inputField.value = ""; // Mező kiüritése
+        }
+    }
+</script>
+</body>
 </html>
