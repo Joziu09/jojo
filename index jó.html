@@ -46,7 +46,7 @@
 
 <script>
     // Helyes jelszó
-    const correctPassword = "R8";
+    const correctPassword = "Kajcia";
 
     function checkPassword() {
         const inputField = document.getElementById("password");  // Helyesen hivatkozva
@@ -57,7 +57,7 @@
             window.location.href = "jojo.html";
         } else {
             // Helytelen jelszó esetén üzenet és mező törlése
-            alert("Segitek meg sugom hogy a jelszó (R8).");
+            alert("Segitek meg sugom hogy a jelszó (Kajcia).");
             inputField.value = ""; // Mező kiüritése
         }
     }
